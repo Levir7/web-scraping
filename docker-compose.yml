@@ -1,0 +1,14 @@
+version: '3'
+services:
+  prices-db:
+    image: postgres:16.2
+    container_name: prices-postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=pricesdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=MySecretPassword
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
