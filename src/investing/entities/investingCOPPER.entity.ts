@@ -10,13 +10,13 @@ export class COPPERTableHistory {
 
     @Column()
     fecha: Date;
-    
-    @Column('decimal')
+     
+    @Column("decimal", { precision: 8, scale: 4 })
     cierre: number;
 
-    @Column('decimal')
+    @Column("decimal", { precision: 8, scale: 2 })
     variacion: number;
-
-    @Column()
+  
+    @Column() 
     tipoDeCambio?: string = 'USD';
-}
+} 

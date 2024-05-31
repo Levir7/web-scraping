@@ -10,10 +10,10 @@ export class DOLLARTableHistory {
     @Column()
     fecha: Date;
     
-    @Column('decimal')
+    @Column('decimal', { precision: 8, scale: 2 })
     cierre: number;
 
-    @Column('decimal')
+    @Column('decimal', { precision: 8, scale: 2 })
     variacion: number;
 
     @Column()

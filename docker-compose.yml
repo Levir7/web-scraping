@@ -1,14 +1,24 @@
 version: '3'
 services:
-  prices-db:
-    image: postgres:16.2
-    container_name: prices-postgres
+  sqlserver-db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver-db
     restart: always
     environment:
-      - POSTGRES_DB=pricesdb
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=MySecretPassword
-    volumes:
-      - ./postgres:/var/lib/postgresql/data
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "MyS3cr3tP@ssword" # Contraseña del usuario SA
+      MSSQL_PID: "Standard" # Opcional: especifica la edición de SQL Server (p. ej. Developer, Express, Standard, etc.)
     ports:
-      - 5433:5432
+      - "1433:1433"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Monta el archivo SQL como volumen
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - gatewayFabrication
+
+networks:
+  gatewayFabrication:
+    driver: bridge
+
+volumes:
+  sqlserver-data:

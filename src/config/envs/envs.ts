@@ -7,22 +7,24 @@ interface EnVars{
     //* PORT of Application
     APP_PORT: number;
     // * BD Connection Interface
-    DB_PORT: number;
-    DB_NAME: string;
-    DB_HOST: string;
-    DB_USERNAME: string;
-    DB_PASSWORD: string;
+    DATABASE_PORT: number;
+    DATABASE_NAME: string;
+    DATABASE_HOST: string;
+    DATABASE_USER: string;
+    DATABASE_PASSWORD: string;
 }
 
 const envsSchema = joi.object({
     // * PORT of application
     APP_PORT: joi.number().required(),
     //* BD CONNECTION 
-    DB_PORT: joi.number().required(),
-    DB_NAME: joi.string().required(),
-    DB_HOST: joi.string().required(),
-    DB_USERNAME: joi.string().required(),
-    DB_PASSWORD:  joi.string().required(),
+    DATABASE_PORT: joi.number().required(),
+    DATABASE_NAME: joi.string().required(),
+    DATABASE_HOST: joi.string().required(),
+    DATABASE_USER: joi.string().required(),
+    DATABASE_PASSWORD:  joi.string().required(),
+    
+
 })
 .unknown(true)
 
@@ -37,9 +39,9 @@ const envVars: EnVars = value;
 export const envs = {
     app_port: envVars.APP_PORT,
     
-    port: envVars.DB_PORT,
-    host: envVars.DB_HOST,
-    username: envVars.DB_USERNAME,
-    password:  envVars.DB_PASSWORD,
-    database: envVars.DB_NAME,
+    port: envVars.DATABASE_PORT,
+    host: envVars.DATABASE_HOST,
+    username: envVars.DATABASE_USER,
+    password:  envVars.DATABASE_PASSWORD,
+    database: envVars.DATABASE_NAME,
 }
