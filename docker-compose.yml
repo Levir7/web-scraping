@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "MyS3cr3tP@ssword" # Contraseña del usuario SA
+      SA_PASSWORD: "${DATABASE_PASSWORD}" # Contraseña del usuario SA
       MSSQL_PID: "Standard" # Opcional: especifica la edición de SQL Server (p. ej. Developer, Express, Standard, etc.)
     ports:
       - "1433:1433"

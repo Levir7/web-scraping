@@ -21,13 +21,14 @@ export class InvestingService {
   ) {}
 
   async scrape(url: string) {
-    const data = await this.scraping(url);
-
+    const data:{ fecha: string; cierre: string; variacion: string }[] = await this.scraping(url);
+    
     return this.convertData(data);
   }
 
   //* SCRAPING URL METHODS
   async scraping(url: string) {
+    // Ejecutamos el navegadorasync scraping(url: string) {
     // Ejecutamos el navegador
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
@@ -39,44 +40,50 @@ export class InvestingService {
       document.querySelectorAll('tbody tr').forEach((row) => {
         const cells = row.querySelectorAll('td');
         if (cells.length >= 6) {
-          scrapedData.push({
-            fecha: cells[0]?.innerText || '',
-            cierre: cells[1]?.innerText || '',
-            variation: cells[6]?.innerText || '',
-          });
+          const fecha = cells[0]?.innerText.trim();
+          const cierre = cells[1]?.innerText.trim();
+          const variacion = cells[6]?.innerText.trim();
+          // Verificar si alguno de los valores es vacío
+          if (fecha === '' || cierre === '' || variacion === '') {
+          return
+          }
+          scrapedData.push({ fecha, cierre, variacion });
         }
       });
-      return scrapedData.filter((r) => r.fecha !== '');
+      return scrapedData;
     });
 
     await browser.close();
+
+    // console.log(data);
     return data;
   }
-
   //* CONVERT DATA METHODS
 
   convertData(data: { fecha: string; cierre: string; variacion: string }[]) {
     const dataFormated = data.map((item) => {
-      const { cierre, variacion, fecha } = item;
-      const cierreCleaned = cierre.replace(',', ''); // Elimina todo excepto dígitos, comas, puntos y signos de menos
-      const cierreNumber = parseFloat(cierreCleaned); // Reemplaza comas por puntos y convierte a número
-      const variationCleaned = variacion.replace(',', ''); // Elimina todo excepto dígitos, comas, puntos y signos de menos
-      const variationNumber = parseFloat(variationCleaned); // Elimina comas y convierte a número
+      const {cierre, fecha, variacion} = item;
+      // Convertir cierre a decimal y eliminar comas
+      const cierreNumber = parseFloat(cierre.replace(/,/g, ''));
+      const variationCleaned = variacion
+        ? variacion.replace(/[^\d.-]/g, '')
+        : '';
+      const variationNumber = parseFloat(variationCleaned);
+      // Formatear la fecha según sea necesario
       const fechaDate = this.convertDate(fecha);
-    
+
       return {
+        fecha: fechaDate,
         cierre: cierreNumber,
         variacion: variationNumber,
-        fecha: fechaDate,
       };
-    });  
-    
-    console.log({ dataFormated });
+    });
+
     return dataFormated;
   }
 
   convertDate(cadenaFecha: string): Date | null {
-    const [day, month, year] = cadenaFecha.split('.').map(Number); 
+    const [day, month, year] = cadenaFecha.split('.').map(Number);
 
     // Verifica si los componentes son números válidos
     if (!isNaN(day) && !isNaN(month) && !isNaN(year)) {
