@@ -1,50 +1,51 @@
-# 📈 Price Tracker Backend: Scraper & API
+# 📈 Web Scraping Backend: Scraper & API
 
-## 🌟 Visión General del Proyecto
+## 🌟 Project Overview
 
-Este proyecto es un servicio **backend** de alto rendimiento construido con **Node.js y TypeScript** que centraliza la recolección y el almacenamiento de datos de mercado en tiempo real.
+This project is a high-performance **backend service** built with **Node.js and TypeScript** that centralizes the real-time collection and storage of market data.
 
-**Funcionalidad:**
-El servicio realiza **Web Scraping programado** de precios de materiales clave (hierro, acero, cobre) y monedas (dólar USD) y persiste estos datos en una base de datos **PostgreSQL**.
+**Functionality:**
+The service performs **scheduled Web Scraping** of key material prices (iron, steel, copper) and currencies (USD dollar) and persists this data in a **PostgreSQL** database.
 
-**Propósito:**
-Proporcionar una fuente de datos local y optimizada. Los clientes externos pueden consumir los precios históricos y actuales conectándose directamente a la base de datos o mediante una API REST.
+**Purpose:**
+To provide a local and optimized data source. External clients can consume historical and current pricing by connecting directly to the database or via a REST API.
 
+![Diagram showing a Node.js scraper extracting data and storing it in PostgreSQL, ready to be queried by clients.](https://placehold.co/800x200/png?text=Architecture+of+the+Price+Tracker+-+Scraper+and+PostgreSQL)
 
-## 🛠️ Stack Tecnológico
+## 🛠️ Technology Stack
 
-| Categoría | Tecnología | Propósito |
+| Category | Technology | Purpose |
 | :--- | :--- | :--- |
-| **Lenguaje** | **TypeScript** | Rigurosidad, tipado estricto y escalabilidad. |
-| **Runtime** | **Node.js** | Entorno de ejecución asíncrono. |
-| **Librerías Scraping** | `axios`, `cheerio` (o la librería que uses) | Solicitudes HTTP y manipulación eficiente del DOM. |
-| **Base de Datos** | **PostgreSQL** | Persistencia de datos históricos, consultas optimizadas. |
-| **Despliegue** | **Docker & Docker Compose** | Entorno local consistente y aislado. |
+| **Language** | **TypeScript** | Strict typing, type safety, and scalability. |
+| **Runtime** | **Node.js** | Asynchronous execution environment. |
+| **Scraping Libraries** | `axios`, `cheerio` (or your chosen library) | HTTP requests and efficient DOM manipulation. |
+| **Database** | **PostgreSQL** | Historical data persistence and optimized queries. |
+| **Deployment** | **Docker & Docker Compose** | Consistent and isolated local environment. |
 
-## 🚀 Puesta en Marcha (Setup)
+## 🚀 Setup & Installation
 
-Sigue estos pasos para levantar el entorno de desarrollo con **Docker Compose** y todas sus dependencias.
+Follow these steps to bring up the development environment using **Docker Compose** and all its dependencies.
 
-### 1. Clonar el Repositorio
+### 1. Clone the Repository
 
 ```bash
-git clone [https://github.com/Levir7/price-tracker-backend.git](https://github.com/Levir7/web-scraping.git)
+git clone [https://github.com/Levir7/web-scraping.git](https://github.com/Levir7/web-scraping.git)
 cd web-scraping
 ```
-### 2. Configurar Variables de Entorno
+### 2. Configure Environment Variables
 ```
-# Ejemplo de .env
+# example of .env
 PORT=3000
 DB_HOST=price_db
 DB_PORT=5432
 DB_USER=user
 DB_PASSWORD=password
-DB_NAME=price_tracker_db
+DB_NAME=price_db
 ```
 
-### 3. Ejecutar con Docker Compose la Base de Datos
+### 3. Run with Docker Compose
 ```
 docker-compose up --build -d
 ```
 
-La aplicación será accesible en http://localhost:3000.
+The application will be accessible at http://localhost:3000.
