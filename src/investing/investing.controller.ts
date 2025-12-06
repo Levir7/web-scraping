@@ -22,15 +22,15 @@ export class InvestingController {
   @Get('/seed')
   async scrapingSteelSEED() {
     const dataConvertedDOLLAR = this.investingService.convertData(SEED_DOLLAR)
-    // const dataSTEEL = await this.investingService.scrape(steelURL);
+    
     await this.investingService.insertOnDB(dataConvertedDOLLAR, 'DOLLAR');
     
     const dataConvertedCOPPER = this.investingService.convertData(COPPER_SEED)
-    // const dataSTEEL = await this.investingService.scrape(steelURL);
+    
     await this.investingService.insertOnDB(dataConvertedCOPPER, 'COPPER');
     
     const dataConvertedSTEEL = this.investingService.convertData(SEED_STEEL)
-    // const dataSTEEL = await this.investingService.scrape(steelURL);
+    
     await this.investingService.insertOnDB(dataConvertedSTEEL, 'STEEL');
     
     return { message: 'Success' };
