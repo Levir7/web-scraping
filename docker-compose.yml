@@ -7,11 +7,11 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "${DATABASE_PASSWORD}" # Contraseña del usuario SA
-      MSSQL_PID: "Standard" # Opcional: especifica la edición de SQL Server (p. ej. Developer, Express, Standard, etc.)
+      MSSQL_PID: "Standard"
     ports:
       - "1433:1433"
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Monta el archivo SQL como volumen
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - sqlserver-data:/var/opt/mssql
     networks:
       - gatewayFabrication
