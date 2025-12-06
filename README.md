@@ -10,7 +10,6 @@ The service performs **scheduled Web Scraping** of key material prices (iron, st
 **Purpose:**
 To provide a local and optimized data source. External clients can consume historical and current pricing by connecting directly to the database or via a REST API.
 
-![Diagram showing a Node.js scraper extracting data and storing it in PostgreSQL, ready to be queried by clients.](https://placehold.co/800x200/png?text=Architecture+of+the+Price+Tracker+-+Scraper+and+PostgreSQL)
 
 ## 🛠️ Technology Stack
 
